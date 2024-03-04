@@ -30,11 +30,16 @@ public class ImageProcessorService : IImageProcessorService
 
         var image = new MagickImage(stream);
 
-        await using var writeStream = new MemoryStream(200);
+        await using var memoryStream = new MemoryStream();
 
-        await image.WriteAsync(writeStream, (MagickFormat)convertRequest.Formats);
+        await image.WriteAsync(memoryStream, (MagickFormat)convertRequest.Formats);
 
-        var convertedImage = new MagickImage(writeStream);
+        if (memoryStream.CanSeek)
+        {
+            memoryStream.Seek(0, SeekOrigin.Begin);
+        }
+        
+        var convertedImage = new MagickImage(memoryStream);
 
         var imageResponse = new ImageResponse
         {
