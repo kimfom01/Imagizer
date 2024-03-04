@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(options =>
         {
             Name = "Kim Fom",
             Email = "kimfom01@gmail.com",
-            Url = new Uri("https://portfolio-pmji.onrender.com/")
+            Url = new Uri("https://kimfom.space")
         },
         License = new OpenApiLicense
         {
