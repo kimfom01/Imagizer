@@ -1,0 +1,6 @@
+[book]
+authors = ["Kim Fom"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Imagizer API"
