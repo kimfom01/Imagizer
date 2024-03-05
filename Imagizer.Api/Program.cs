@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "Imagizer API",
-        Description = "A Web API for manipulating images",
+        Description = "A Web API for manipulating images based on the Magick.NET library",
         Contact = new OpenApiContact
         {
             Name = "Kim Fom",
