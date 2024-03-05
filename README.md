@@ -1,6 +1,6 @@
 # Imagizer API 
 
-This document outlines the available API endpoints, including detailed descriptions of request parameters, sample requests, and responses to help you effectively utilize the service.
+Imagizer is an image manipulation API built using Magick.NET
 
 [//]: # (## Getting Started)
 
