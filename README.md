@@ -1,4 +1,4 @@
-# Imagizer API
+# Imagizer API 
 
 ## Introduction
 
@@ -13,6 +13,8 @@ Imagizer is an image manipulation API built using Magick.NET
 
 - Resize images
 - Convert image formats
+
+Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for more info
 
 [//]: # (---)
 
