@@ -1,11 +1,13 @@
 using Imagizer.Api.Models;
 using Imagizer.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Imagizer.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[EnableRateLimiting("fixed-by-ip")]
 public class ImageController : ControllerBase
 {
     private readonly IImageProcessorService _imageProcessorService;

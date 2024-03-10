@@ -1,12 +1,10 @@
 using System.Reflection;
+using System.Threading.RateLimiting;
 using Imagizer.Api.Services;
 using Microsoft.OpenApi.Models;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5115";
-var url = $"http://0.0.0.0:{port}";
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -35,11 +33,26 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.ConfigureSwaggerGen(options => { options.AddEnumsWithValuesFixFilters(); });
 builder.Services.AddScoped<IImageProcessorService, ImageProcessorService>();
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("fixed-by-ip", httpContext =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1)
+            });
+    });
+});
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseRateLimiter();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -48,4 +61,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(url);
+app.Run();
