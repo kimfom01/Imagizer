@@ -16,13 +16,13 @@ Imagizer is an image manipulation API built using Magick.NET
 
 Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for more info
 
-[//]: # (---)
+---
 
-[//]: # ()
-[//]: # (## Additional Notes)
 
-[//]: # ()
-[//]: # (- **Rate Limiting**: &#40;Include details about rate limiting, if applicable&#41;)
+## Additional Notes
+
+
+- **Rate Limiting**: The API is rate limited to **_10 requests per minute_**
 
 [//]: # (---)
 
