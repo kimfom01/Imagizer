@@ -20,6 +20,12 @@ Contributors names and contact info
 
 🖼️ Convert image formats ([doc](ConvertImageFormat.md))
 
+---
+
+## Additional Notes
+
+- **Rate Limiting**: The API is rate limited to **_10 requests per minute_**
+
 ## Roadmap 🚀
 
 - [ ] Add more formats

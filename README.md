@@ -6,6 +6,7 @@ Imagizer is an image manipulation API built using Magick.NET
 
 - This is an API where users can manipulate their provided image.
 - The API allows users to resize images and convert images from one format to another
+- The API is rate limited to **_10 requests per minute_**
 
 ---
 
@@ -18,9 +19,7 @@ Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for mor
 
 ---
 
-
 ## Additional Notes
-
 
 - **Rate Limiting**: The API is rate limited to **_10 requests per minute_**
 
@@ -36,10 +35,10 @@ Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for mor
 
 ## Roadmap
 
-- Add more formats
-- Add rate limiting
-- Build a minimal user interface
-- Add more image manipulation endpoints
+- [ ] Add more formats
+- [x] Add rate limiting
+- [ ] Build a minimal user interface
+- [ ] Add more image manipulation endpoints
 
 ---
 
