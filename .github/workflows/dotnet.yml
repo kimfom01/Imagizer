@@ -9,7 +9,10 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-
+    env:
+      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      MINIO_URL: ${{ secrets.MINIO_URL }}
     steps:
       - uses: actions/checkout@v4
 
