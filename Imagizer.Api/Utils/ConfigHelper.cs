@@ -15,7 +15,7 @@ public static class ConfigHelper
     {
         var keyArray = key.Split(':').ToList();
 
-        var output = string.Join("_", keyArray);
+        var output = key.Replace(':', '_');
 
         return output;
     }
