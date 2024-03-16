@@ -45,15 +45,22 @@ public class ImageController : ControllerBase
     /// The request must be made with 'multipart/form-data' content type to include the image file and the size parameter.
     /// </remarks>
     /// <response code="200">Returns the resized image file</response>
-    /// <response code="400">If the request is invalid</response>
+    /// <response code="400">If the request is invalid (missing image, size less than or equal to zero)</response>
     [HttpPost("resize")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> ResizeImage([FromForm] ResizeRequest resizeRequest)
     {
-        var imageResponse = await Task.Run(() => _imageProcessorService.ResizeImage(resizeRequest));
+        try
+        {
+            var imageResponse = await Task.Run(() => _imageProcessorService.ResizeImage(resizeRequest));
 
-        return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+            return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 
     /// <summary>
@@ -73,14 +80,21 @@ public class ImageController : ControllerBase
     /// The request must be made with 'multipart/form-data' content type to include the image file and the format parameter.
     /// </remarks>
     /// <response code="200">Returns the converted image file</response>
-    /// <response code="400">If the request is invalid</response>
+    /// <response code="400">If the request is invalid (missing image, missing/not supported format)</response>
     [HttpPost("convert")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> ConvertImage([FromForm] ConvertRequest convertRequest)
     {
-        var imageResponse = await _imageProcessorService.ConvertImage(convertRequest);
+        try
+        {
+            var imageResponse = await _imageProcessorService.ConvertImage(convertRequest);
 
-        return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+            return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 }
