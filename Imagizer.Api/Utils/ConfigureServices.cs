@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Threading.RateLimiting;
+using Imagizer.Api.Infrastructure.FileUpload;
 using Imagizer.Api.Infrastructure.LinkShortener;
 using Imagizer.Api.Services;
 using Microsoft.OpenApi.Models;
@@ -10,7 +11,10 @@ namespace Imagizer.Api.Utils;
 
 public static class ConfigureServicesExtension
 {
-    public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection RegisterServices(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        IWebHostEnvironment environment)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -33,7 +37,7 @@ public static class ConfigureServicesExtension
                     Url = new Uri("https://opensource.org/license/mit/")
                 }
             });
-        
+
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
@@ -60,8 +64,14 @@ public static class ConfigureServicesExtension
             config.WithEndpoint(ConfigHelper.GetVariable("MINIO:URL", configuration))
                 .WithCredentials(ConfigHelper.GetVariable("MINIO:ACCESS_KEY", configuration),
                     ConfigHelper.GetVariable("MINIO:SECRET_KEY", configuration));
+
+            if (environment.IsDevelopment())
+            {
+                config.WithSSL(false);
+            }
         });
-        
+        services.AddTransient<IObjectUploader, ObjectUploader>();
+
         return services;
     }
 }
