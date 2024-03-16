@@ -20,6 +20,12 @@ public class ImageController : ControllerBase
     /// <summary>
     /// Gets a greeting message
     /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     GET /api/image
+    /// 
+    /// </remarks>
     /// <response code="200">Returns a greeting message</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -32,11 +38,11 @@ public class ImageController : ControllerBase
     /// Resizes an uploaded image to a specified size.
     /// </summary>
     /// <param name="resizeRequest">The resize request containing the image file and the target size.</param>
-    /// <returns>A resized image file.</returns>
+    /// <returns>A link to download the resized image.</returns>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST /resize
+    ///     POST /api/image/resize
     ///     Content-Type: multipart/form-data
     ///     FormData:
     ///         ImageFile: (The image file to be resized),
@@ -44,18 +50,18 @@ public class ImageController : ControllerBase
     ///
     /// The request must be made with 'multipart/form-data' content type to include the image file and the size parameter.
     /// </remarks>
-    /// <response code="200">Returns the resized image file</response>
+    /// <response code="200">Returns a link to download the image</response>
     /// <response code="400">If the request is invalid (missing image, size less than or equal to zero)</response>
     [HttpPost("resize")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> ResizeImage([FromForm] ResizeRequest resizeRequest)
+    public async Task<ActionResult<UrlResponse>> ResizeImage([FromForm] ResizeRequest resizeRequest)
     {
         try
         {
-            var imageResponse = await Task.Run(() => _imageProcessorService.ResizeImage(resizeRequest));
+            var urlResponse = await Task.Run(() => _imageProcessorService.ResizeImage(resizeRequest));
 
-            return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+            return Ok(urlResponse);
         }
         catch (Exception exception)
         {
@@ -67,11 +73,11 @@ public class ImageController : ControllerBase
     /// Converts an uploaded image to a specified format.
     /// </summary>
     /// <param name="convertRequest">The convert request containing the image file and the target format.</param>
-    /// <returns>A converted image file.</returns>
+    /// <returns>A link to download the converted image.</returns>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST /convert
+    ///     POST /api/image/convert
     ///     Content-Type: multipart/form-data
     ///     FormData:
     ///         ImageFile: (The image file to be converted),
@@ -79,18 +85,18 @@ public class ImageController : ControllerBase
     ///
     /// The request must be made with 'multipart/form-data' content type to include the image file and the format parameter.
     /// </remarks>
-    /// <response code="200">Returns the converted image file</response>
+    /// <response code="200">Returns a link to download the image</response>
     /// <response code="400">If the request is invalid (missing image, missing/not supported format)</response>
     [HttpPost("convert")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> ConvertImage([FromForm] ConvertRequest convertRequest)
+    public async Task<ActionResult<UrlResponse>> ConvertImage([FromForm] ConvertRequest convertRequest)
     {
         try
         {
-            var imageResponse = await _imageProcessorService.ConvertImage(convertRequest);
+            var urlResponse = await _imageProcessorService.ConvertImage(convertRequest);
 
-            return File(imageResponse.ImageBytes, $"image/{imageResponse.Format.ToLower()}");
+            return Ok(urlResponse);
         }
         catch (Exception exception)
         {
