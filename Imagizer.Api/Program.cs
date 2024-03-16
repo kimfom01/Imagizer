@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Threading.RateLimiting;
-using Imagizer.Api.Infrastructure;
+using Imagizer.Api.Infrastructure.LinkShortener;
 using Imagizer.Api.Services;
 using Imagizer.Api.Utils;
 using Microsoft.OpenApi.Models;
