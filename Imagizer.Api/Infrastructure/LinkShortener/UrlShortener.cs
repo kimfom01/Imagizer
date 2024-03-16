@@ -2,7 +2,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using Imagizer.Api.Utils;
 
-namespace Imagizer.Api.Infrastructure;
+namespace Imagizer.Api.Infrastructure.LinkShortener;
 
 public class UrlShortener : IUrlShortener
 {
@@ -31,5 +31,10 @@ public class UrlShortener : IUrlShortener
             await JsonSerializer.DeserializeAsync<ShortenerResponseModel>(responseStream);
 
         return responseModel?.ShortLink;
+    }
+
+    public void Dispose()
+    {
+        _httpClient.Dispose();
     }
 }
