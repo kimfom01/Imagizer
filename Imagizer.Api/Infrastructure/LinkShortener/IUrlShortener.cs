@@ -1,6 +1,6 @@
 namespace Imagizer.Api.Infrastructure.LinkShortener;
 
-public interface IUrlShortener : IDisposable
+public interface IUrlShortener
 {
     public Task<string?> ShortenUrl(ShortenerRequestModel shortenerRequest);
 }

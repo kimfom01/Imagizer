@@ -32,9 +32,4 @@ public class UrlShortener : IUrlShortener
 
         return responseModel?.ShortLink;
     }
-
-    public void Dispose()
-    {
-        _httpClient.Dispose();
-    }
 }
