@@ -1,6 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
-using Imagizer.Api.Exceptions;
+using Imagizer.Api.Utils;
 
 namespace Imagizer.Api.Infrastructure;
 
@@ -8,15 +8,11 @@ public class UrlShortener : IUrlShortener
 {
     private readonly HttpClient _httpClient;
 
-    public UrlShortener(
-        IConfiguration config,
-        HttpClient httpClient)
+    public UrlShortener(IConfiguration config, HttpClient httpClient)
     {
         _httpClient = httpClient;
 
-        var shortenerApiKey = config.GetValue<string>("SHORTENER:API_KEY") ??
-                              Environment.GetEnvironmentVariable("SHORTENER_API_KEY") ??
-                              throw new NotFoundException("API_KEY not found");
+        var shortenerApiKey = ConfigHelper.GetVariable("SHORTENER:API_KEY", config);
 
         _httpClient.DefaultRequestHeaders.Clear();
         _httpClient.DefaultRequestHeaders.Add("api-key", shortenerApiKey);

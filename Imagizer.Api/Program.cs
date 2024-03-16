@@ -1,8 +1,8 @@
 using System.Reflection;
 using System.Threading.RateLimiting;
-using Imagizer.Api.Exceptions;
 using Imagizer.Api.Infrastructure;
 using Imagizer.Api.Services;
+using Imagizer.Api.Utils;
 using Microsoft.OpenApi.Models;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
@@ -49,12 +49,7 @@ builder.Services.AddRateLimiter(options =>
     });
 });
 builder.Services.AddHttpClient<IUrlShortener, UrlShortener>(
-    opt =>
-    {
-        opt.BaseAddress = new Uri(builder.Configuration.GetValue<string>("SHORTENER:API_HOST") ??
-                                  Environment.GetEnvironmentVariable("SHORTENER_API_HOST") ??
-                                  throw new NotFoundException("API_HOST not found"));
-    });
+    opt => { opt.BaseAddress = new Uri(ConfigHelper.GetVariable("SHORTENER:API_HOST", builder.Configuration)); });
 builder.Services.AddScoped<IUrlShortener, UrlShortener>();
 
 var app = builder.Build();
