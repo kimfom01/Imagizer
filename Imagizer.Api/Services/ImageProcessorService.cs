@@ -1,4 +1,5 @@
 using ImageMagick;
+using Imagizer.Api.Exceptions;
 using Imagizer.Api.Models;
 
 namespace Imagizer.Api.Services;
@@ -7,6 +8,11 @@ public class ImageProcessorService : IImageProcessorService
 {
     public ImageResponse ResizeImage(ResizeRequest resizeRequest)
     {
+        if (resizeRequest.Size <= 0)
+        {
+            throw new InvalidSizeException("Size cannot be less than or equal to 0");
+        }
+
         using var stream = resizeRequest.ImageFile.OpenReadStream();
 
         var image = new MagickImage(stream);
@@ -32,19 +38,19 @@ public class ImageProcessorService : IImageProcessorService
 
         await using var memoryStream = new MemoryStream();
 
-        await image.WriteAsync(memoryStream, (MagickFormat)convertRequest.Formats);
+        await image.WriteAsync(memoryStream, (MagickFormat)convertRequest.Format);
 
         if (memoryStream.CanSeek)
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
         }
-        
+
         var convertedImage = new MagickImage(memoryStream);
 
         var imageResponse = new ImageResponse
         {
             ImageBytes = convertedImage.ToByteArray(),
-            Format = convertRequest.Formats.ToString()
+            Format = convertRequest.Format.ToString()
         };
 
         return imageResponse;
