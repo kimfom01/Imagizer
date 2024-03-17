@@ -12,7 +12,7 @@ jobs:
     env:
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
       MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-      MINIO_URL: ${{ secrets.MINIO_URL }}
+      MINIO_URL: ${{ vars.MINIO_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -22,7 +22,9 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          echo "$MINIO_URL"
+          dotnet restore
 
       - name: Build
         run: dotnet build --no-restore
