@@ -71,6 +71,7 @@ public static class ConfigureServicesExtension
             }
         });
         services.AddTransient<IObjectUploader, ObjectUploader>();
+        services.AddHealthChecks();
 
         return services;
     }
