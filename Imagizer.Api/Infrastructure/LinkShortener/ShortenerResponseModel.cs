@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Imagizer.Api.Infrastructure;
+namespace Imagizer.Api.Infrastructure.LinkShortener;
 
 public class ShortenerResponseModel
 {

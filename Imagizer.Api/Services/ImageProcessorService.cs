@@ -1,19 +1,27 @@
 using ImageMagick;
 using Imagizer.Api.Exceptions;
+using Imagizer.Api.Infrastructure.FileUpload;
 using Imagizer.Api.Models;
 
 namespace Imagizer.Api.Services;
 
 public class ImageProcessorService : IImageProcessorService
 {
-    public ImageResponse ResizeImage(ResizeRequest resizeRequest)
+    private readonly IObjectUploader _objectUploader;
+
+    public ImageProcessorService(IObjectUploader objectUploader)
+    {
+        _objectUploader = objectUploader;
+    }
+
+    public async Task<UrlResponse> ResizeImage(ResizeRequest resizeRequest)
     {
         if (resizeRequest.Size <= 0)
         {
             throw new InvalidSizeException("Size cannot be less than or equal to 0");
         }
 
-        using var stream = resizeRequest.ImageFile.OpenReadStream();
+        await using var stream = resizeRequest.ImageFile.OpenReadStream();
 
         var image = new MagickImage(stream);
 
@@ -21,16 +29,32 @@ public class ImageProcessorService : IImageProcessorService
 
         image.Resize(shape);
 
-        var imageResponse = new ImageResponse
+        await using var memoryStream = new MemoryStream();
+
+        await image.WriteAsync(memoryStream);
+        
+        if (memoryStream.CanSeek)
         {
-            ImageBytes = image.ToByteArray(),
-            Format = image.Format.ToString()
+            memoryStream.Seek(0, SeekOrigin.Begin);
+        }
+
+        var imageUploadArgs = new ImageUploadArgs
+        {
+            BucketName = "resize-bucket",
+            ContentType = resizeRequest.ImageFile.ContentType,
+            ImageStream = memoryStream,
+            ObjectName = resizeRequest.ImageFile.FileName
         };
 
-        return imageResponse;
+        var downloadUrl = await _objectUploader.UploadImage(imageUploadArgs);
+
+        return new UrlResponse
+        {
+            DownloadUrl = downloadUrl
+        };
     }
 
-    public async Task<ImageResponse> ConvertImage(ConvertRequest convertRequest)
+    public async Task<UrlResponse> ConvertImage(ConvertRequest convertRequest)
     {
         await using var stream = convertRequest.ImageFile.OpenReadStream();
 
@@ -45,14 +69,19 @@ public class ImageProcessorService : IImageProcessorService
             memoryStream.Seek(0, SeekOrigin.Begin);
         }
 
-        var convertedImage = new MagickImage(memoryStream);
-
-        var imageResponse = new ImageResponse
+        var imageUploadArgs = new ImageUploadArgs
         {
-            ImageBytes = convertedImage.ToByteArray(),
-            Format = convertRequest.Format.ToString()
+            BucketName = "convert-bucket",
+            ContentType = convertRequest.ImageFile.ContentType,
+            ImageStream = memoryStream,
+            ObjectName = convertRequest.ImageFile.FileName
         };
 
-        return imageResponse;
+        var downloadUrl = await _objectUploader.UploadImage(imageUploadArgs);
+
+        return new UrlResponse
+        {
+            DownloadUrl = downloadUrl
+        };
     }
 }

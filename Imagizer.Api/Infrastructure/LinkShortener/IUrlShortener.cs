@@ -1,4 +1,4 @@
-namespace Imagizer.Api.Infrastructure;
+namespace Imagizer.Api.Infrastructure.LinkShortener;
 
 public interface IUrlShortener
 {

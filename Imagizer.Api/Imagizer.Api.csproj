@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="Magick.NET-Q8-x64" Version="13.6.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
+        <PackageReference Include="Minio" Version="6.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
         <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.7.1" />
     </ItemGroup>
