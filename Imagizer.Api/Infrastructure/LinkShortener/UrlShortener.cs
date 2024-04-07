@@ -13,7 +13,9 @@ public class UrlShortener : IUrlShortener
         _httpClient = httpClient;
 
         var shortenerApiKey = ConfigHelper.GetVariable("SHORTENER:API_KEY", config);
+        var baseUrl = ConfigHelper.GetVariable("SHORTENER:API_HOST", config);
 
+        _httpClient.BaseAddress = new Uri(baseUrl);
         _httpClient.DefaultRequestHeaders.Clear();
         _httpClient.DefaultRequestHeaders.Add("api-key", shortenerApiKey);
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

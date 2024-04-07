@@ -56,8 +56,7 @@ public static class ConfigureServicesExtension
                     });
             });
         });
-        services.AddHttpClient<IUrlShortener, UrlShortener>(
-            opt => { opt.BaseAddress = new Uri(ConfigHelper.GetVariable("SHORTENER:API_HOST", configuration)); });
+        services.AddHttpClient<IUrlShortener, UrlShortener>();
         services.AddScoped<IUrlShortener, UrlShortener>();
         services.AddMinio(config =>
         {
