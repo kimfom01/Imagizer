@@ -6,11 +6,13 @@ namespace Imagizer.Api.Infrastructure.FileUpload;
 public class ObjectUploader : IObjectUploader
 {
     private readonly IMinioClient _minioClient;
+    private readonly ILogger<ObjectUploader> _logger;
     private const int ExpireBy = 60 * 60 * 2;
 
-    public ObjectUploader(IMinioClient minioClient)
+    public ObjectUploader(IMinioClient minioClient, ILogger<ObjectUploader> logger)
     {
         _minioClient = minioClient;
+        _logger = logger;
     }
 
     public async Task<string> UploadImage(ImageUploadArgs imageUploadArgs)
@@ -27,14 +29,14 @@ public class ObjectUploader : IObjectUploader
                 .WithContentType(imageUploadArgs.ContentType);
 
             await _minioClient.PutObjectAsync(putObjectArgs);
-            
+
             var downloadUrl = await GetDownloadUrl(imageUploadArgs);
 
             return downloadUrl;
         }
         catch (Exception exception)
         {
-            Console.WriteLine(exception);
+            _logger.LogError("An error occured: {exceptionMessage}", exception.Message);
             throw;
         }
     }

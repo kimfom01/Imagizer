@@ -54,6 +54,9 @@ public class ConvertTests : IDisposable
         using var convertRequest = new MultipartFormDataContent();
 
         convertRequest.Add(_fileContent, "ImageFile", "wallpaper.jpg");
+        // you can create a bitmap image and save it to a stream then
+        // use it for this test rather than reading an actual file
+        
         convertRequest.Add(format, "Format");
 
         var result = await _httpClient.PostAsync("/api/Image/convert", convertRequest);
