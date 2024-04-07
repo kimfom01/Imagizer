@@ -64,7 +64,7 @@ public static class ConfigureServicesExtension
                 .WithCredentials(ConfigHelper.GetVariable("MINIO:ACCESS_KEY", configuration),
                     ConfigHelper.GetVariable("MINIO:SECRET_KEY", configuration));
 
-            if (environment.IsDevelopment())
+            // if (environment.IsDevelopment()) // restore after adding ssl to minio deployment
             {
                 config.WithSSL(false);
             }
