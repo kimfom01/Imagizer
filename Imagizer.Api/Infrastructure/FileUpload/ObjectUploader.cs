@@ -28,7 +28,8 @@ public class ObjectUploader : IObjectUploader
                 .WithObjectSize(imageUploadArgs.ImageStream.Length)
                 .WithContentType(imageUploadArgs.ContentType);
 
-            await _minioClient.PutObjectAsync(putObjectArgs);
+            var response = await _minioClient.PutObjectAsync(putObjectArgs);
+            _logger.LogInformation("Response from uploading image: {response}", response);
 
             var downloadUrl = await GetDownloadUrl(imageUploadArgs);
 
@@ -36,7 +37,7 @@ public class ObjectUploader : IObjectUploader
         }
         catch (Exception exception)
         {
-            _logger.LogError("An error occured: {exceptionMessage}", exception.Message);
+            _logger.LogError("An error occured: {exception}", exception);
             throw;
         }
     }
