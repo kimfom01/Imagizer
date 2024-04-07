@@ -14,6 +14,8 @@ jobs:
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
       MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
       MINIO_URL: ${{ secrets.MINIO_URL }}
+      SHORTENER_API_KEY: ${{ secrets.SHORTENER_API_KEY }}
+      SHORTENER_API_HOST: ${{ secrets.SHORTENER_API_HOST }}
     steps:
       - uses: actions/checkout@v4
 
