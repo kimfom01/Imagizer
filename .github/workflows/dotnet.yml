@@ -25,19 +25,19 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./server/
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore ./server/
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal ./server/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: net-build
-          path: ./
+          path: ./server/
 
   push-to-dockerhub:
     needs: build-test
