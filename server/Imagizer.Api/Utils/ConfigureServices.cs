@@ -65,9 +65,9 @@ public static class ConfigureServicesExtension
                     ConfigHelper.GetVariable("MINIO:SECRET_KEY", configuration));
 
             // if (environment.IsDevelopment()) // restore after adding ssl to minio deployment
-            {
-                config.WithSSL(false);
-            }
+            // {
+            //     config.WithSSL(false);
+            // }
         });
         services.AddTransient<IObjectUploader, ObjectUploader>();
         services.AddHealthChecks();
