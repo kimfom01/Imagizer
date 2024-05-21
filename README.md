@@ -1,4 +1,4 @@
-# Imagizer API 
+# Imagizer API
 
 ## Introduction
 
@@ -22,14 +22,6 @@ Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for mor
 ## Additional Notes
 
 - **Rate Limiting**: The API is rate limited to **_10 requests per minute_**
-
-[//]: # (---)
-
-[//]: # ()
-[//]: # (## Demo)
-
-[//]: # ()
-[//]: # (- Include screenshots or a demo video to visually demonstrate your project.)
 
 ---
 
@@ -60,23 +52,27 @@ Contributors names and contact info
 
 ### Getting the Project
 
-- Clone the repository: 
+- Clone the repository:
+
 ```sh
 git clone https://github.com/kimfom01/Imagizer.git
 ```
+
 - Alternatively, download and extract the project ZIP file.
 
 ### Building the Project
 
 - Navigate to the project's root directory in the terminal.
+
 ```sh
 cd Imagizer/Imagizer.Api
 ```
 
 - Build the project
+
 ```sh
 dotnet build
-````
+```
 
 ### Running the Application
 
@@ -104,6 +100,7 @@ dotnet run
 ### Publishing (For Deployment)
 
 - To publish the application for deployment, run
+
 ```sh
 dotnet publish -c Release -o ./publish
 ```
@@ -127,14 +124,3 @@ dotnet publish -c Release -o ./publish
 ## Contact Information
 
 - Kim Fom - [kimfom01@gmail.com](mailto:kimfom01@gmail.com)
-
-[//]: # "## Changelog"
-
-[//]: # "- (Optional) Include a changelog file detailing the chronological changes made to the project."
-
-[//]: #
-
-[//]: # "## FAQs"
-
-[//]: # "- (Optional) Frequently asked questions about the project."
-

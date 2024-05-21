@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "inno-trackify",
+        "projectKey": "kimfom01_Imagizer"
+    }
+}
