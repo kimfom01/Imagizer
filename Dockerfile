@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["Imagizer.Api/Imagizer.Api.csproj","Imagizer.Api/"]
+COPY server/Imagizer.Api/Imagizer.Api.csproj Imagizer.Api/
 RUN dotnet restore Imagizer.Api/Imagizer.Api.csproj
-COPY . .
+COPY server/Imagizer.Api/ Imagizer.Api/
 RUN dotnet build Imagizer.Api/Imagizer.Api.csproj --no-restore -c Release -o /app/build
 
 FROM build AS publish
