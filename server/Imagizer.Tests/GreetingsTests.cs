@@ -13,17 +13,27 @@ public class GreetingsTests : IDisposable
         _httpClient = _api.CreateClient();
     }
 
-    public void Dispose()
-    {
-        _api.Dispose();
-        _httpClient.Dispose();
-    }
-
     [Fact]
     public async Task ShouldReturn200WhenCalled()
     {
         var result = await _httpClient.GetAsync("/api/Image");
 
         Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool isDisposing)
+    {
+        if (isDisposing)
+        {
+            _api.Dispose();
+            _httpClient.Dispose();
+        }
     }
 }

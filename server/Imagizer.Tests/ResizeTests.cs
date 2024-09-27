@@ -17,14 +17,6 @@ public class ResizeTests : IDisposable
         _fileContent = new StreamContent(_stream);
     }
 
-    public void Dispose()
-    {
-        _api.Dispose();
-        _httpClient.Dispose();
-        _stream.Dispose();
-        _fileContent.Dispose();
-    }
-
     [Fact]
     public async Task ResizeRequestShouldReturnBadRequestWhenSizeMissing()
     {
@@ -61,5 +53,23 @@ public class ResizeTests : IDisposable
         var result = await _httpClient.PostAsync("/api/Image/resize", convertRequest);
 
         Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool isDisposing)
+    {
+        if (isDisposing)
+        {
+            _api.Dispose();
+            _httpClient.Dispose();
+            _stream.Dispose();
+            _fileContent.Dispose();
+        }
     }
 }
