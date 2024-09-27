@@ -41,10 +41,7 @@ public class ImageProcessorService : IImageProcessorService
         var downloadUrl = await _objectUploader.UploadImage(imageUploadArgs);
         var shortUrl = await _urlShortener.ShortenUrl(new ShortenerRequestModel { Url = downloadUrl });
 
-        return new UrlResponse
-        {
-            DownloadUrl = shortUrl ?? downloadUrl
-        };
+        return new UrlResponse(shortUrl ?? downloadUrl);
     }
 
     private async Task<MemoryStream> WriteToMemoryStream(MagickImage image)
@@ -100,9 +97,6 @@ public class ImageProcessorService : IImageProcessorService
         var downloadUrl = await _objectUploader.UploadImage(imageUploadArgs);
         var shortUrl = await _urlShortener.ShortenUrl(new ShortenerRequestModel { Url = downloadUrl });
 
-        return new UrlResponse
-        {
-            DownloadUrl = shortUrl ?? downloadUrl
-        };
+        return new UrlResponse(shortUrl ?? downloadUrl);
     }
 }

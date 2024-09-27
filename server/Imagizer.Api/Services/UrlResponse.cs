@@ -1,6 +1,3 @@
 namespace Imagizer.Api.Services;
 
-public class UrlResponse
-{
-    public string DownloadUrl { get; set; }
-}
+public record UrlResponse(string DownloadUrl);

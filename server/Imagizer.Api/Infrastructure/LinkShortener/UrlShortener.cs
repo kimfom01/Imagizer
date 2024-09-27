@@ -1,6 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
-using Imagizer.Api.Utils;
+using Microsoft.Extensions.Options;
 
 namespace Imagizer.Api.Infrastructure.LinkShortener;
 
@@ -8,16 +8,13 @@ public class UrlShortener : IUrlShortener
 {
     private readonly HttpClient _httpClient;
 
-    public UrlShortener(IConfiguration config, HttpClient httpClient)
+    public UrlShortener(IOptions<ShortenerOptions> options, HttpClient httpClient)
     {
         _httpClient = httpClient;
 
-        var shortenerApiKey = ConfigHelper.GetVariable("SHORTENER:API_KEY", config);
-        var baseUrl = ConfigHelper.GetVariable("SHORTENER:API_HOST", config);
-
-        _httpClient.BaseAddress = new Uri(baseUrl);
+        _httpClient.BaseAddress = new Uri(options.Value.ApiHost);
         _httpClient.DefaultRequestHeaders.Clear();
-        _httpClient.DefaultRequestHeaders.Add("api-key", shortenerApiKey);
+        _httpClient.DefaultRequestHeaders.Add("api-key", options.Value.ApiKey);
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 

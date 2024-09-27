@@ -1,4 +1,4 @@
-namespace Imagizer.Api.Options;
+namespace Imagizer.Api.Options.OpenApi;
 
 public class OpenApiOptions
 {
