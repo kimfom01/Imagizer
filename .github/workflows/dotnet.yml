@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: build-test
     env:
-      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-      MINIO_URL: ${{ secrets.MINIO_URL }}
-      SHORTENER_API_KEY: ${{ secrets.SHORTENER_API_KEY }}
-      SHORTENER_API_HOST: ${{ secrets.SHORTENER_API_HOST }}
+      MinioOptions__AccessKey: ${{ secrets.MINIOOPTIONS__ACCESSKEY }}
+      MinioOptions__SecretKey: ${{ secrets.MINIOOPTIONS__SECRETKEY }}
+      MinioOptions__Url: ${{ secrets.MINIOOPTIONS__URL }}
+      ShortenerOptions__APIHOST: ${{ secrets.SHORTENEROPTIONS__APIHOST }}
+      ShortenerOptions__ApiKey: ${{ secrets.SHORTENEROPTIONS__APIKEY }}
     steps:
       - uses: actions/checkout@v4
 
