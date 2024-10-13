@@ -8,7 +8,7 @@ export const App = () => {
   const [downloadUrl, setDownloadUrl] = useState("");
 
   return (
-    <div className="container flex h-screen dark:text-white flex-col mx-auto pt-4">
+    <div className="container flex h-screen dark:text-white flex-col mx-auto p-4">
       <Header />
       <div className="flex-1">
         <div className="flex flex-col gap-10 min-h-full justify-center items-center">
@@ -58,7 +58,7 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-4">
           <p>&copy; Kim Fom - {new Date().getFullYear()}</p>
           <a
-            href="http://localhost:5115/swagger/"
+            href="https://img-api.kimfom.space/swagger/"
             target="_blank"
             rel="noreferrer"
             className="hover:underline visited:text-purple-500"
@@ -119,9 +119,9 @@ export const ResizeForm = ({ setDownloadUrl }: ResizeFormProps) => {
   });
 
   return (
-    <form onSubmit={mutateAsync}>
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col items-center md:flex-row justify-between mb-4 gap-4">
+    <form className="w-full md:w-fit" onSubmit={mutateAsync}>
+      <div className="flex flex-col w-full gap-10">
+        <div className="flex flex-col w-full items-center justify-between mb-4 gap-4">
           <label htmlFor="size">Enter the new size:</label>
           <input
             id="size"
@@ -129,10 +129,10 @@ export const ResizeForm = ({ setDownloadUrl }: ResizeFormProps) => {
             required
             type="number"
             onChange={(event) => setForm({ ...form, Size: event.target.value })}
-            className="border rounded border-solid dark:bg-slate-700 border-slate-500"
+            className="border w-full p-2 rounded border-solid dark:bg-slate-700 border-slate-500"
           />
         </div>
-        <div className="flex">
+        <div className="flex flex-col md:flex-row gap-4">
           <input
             name="ImageFile"
             required
@@ -143,7 +143,7 @@ export const ResizeForm = ({ setDownloadUrl }: ResizeFormProps) => {
                 ImageFile: Array.from(event.target.files || [])[0],
               })
             }
-            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 active:file:border-white active:file:border"
+            className="block border-2 border-slate-500 rounded-lg w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 active:file:border-white active:file:border"
           />
           <button
             type="submit"
