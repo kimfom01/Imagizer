@@ -65,7 +65,13 @@ git clone https://github.com/kimfom01/Imagizer.git
 - Navigate to the project's root directory in the terminal.
 
 ```sh
-cd Imagizer/Imagizer.Api
+cd Imagizer/server/ImagizerAPI
+```
+
+- Restore dependencies
+
+```sh
+dotnet restore
 ```
 
 - Build the project
@@ -75,18 +81,6 @@ dotnet build
 ```
 
 ### Running the Application
-
-- Navigate to the project root directory
-
-```sh
-cd Imagizer/Imagizer.Api
-```
-
-- Restore dependencies
-
-```sh
-dotnet restore
-```
 
 - Run the API
 
