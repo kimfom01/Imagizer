@@ -16,12 +16,18 @@ builder.Services.ConfigureOptions<ConfigureAzureBlobOptions>();
 builder.Services.ConfigureOptions<ConfigureOpenApiOptions>();
 builder.Services.AddCors(options =>
 {
-    var corsOriginOptions = builder
+    var corsOrigins = builder
         .Configuration.GetSection(nameof(CorsOriginOptions))
         .GetChildren()
+        .Select(x => x.Value!)
         .ToArray();
 
-    options.AddPolicy("default", corsPolicy => { corsPolicy.WithOrigins(corsOriginOptions[0].Value!); });
+    options.AddPolicy("default", corsPolicy =>
+    {
+        corsPolicy.WithOrigins(corsOrigins)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
 builder.Services.ConfigureSwaggerGen();
 builder.Services.ConfigureRateLimiter();
