@@ -2,6 +2,7 @@ import { useIsMutating, useMutation } from "@tanstack/react-query";
 import { Header } from "./components/Header";
 import { VITE_API_URL } from "./utils/apiUtils";
 import { FormEvent, useState } from "react";
+import axios from "axios";
 
 export const App = () => {
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -78,6 +79,10 @@ interface ResizeFormProps {
   setDownloadUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface ResizeReponse {
+  downloadUrl: string;
+}
+
 export const ResizeForm = ({ setDownloadUrl }: ResizeFormProps) => {
   const [form, setForm] = useState<FormProps>({ Size: "", ImageFile: null });
 
@@ -90,12 +95,17 @@ export const ResizeForm = ({ setDownloadUrl }: ResizeFormProps) => {
       formData.append("ImageFile", form.ImageFile);
     }
 
-    const response = await fetch(`${VITE_API_URL}/resize`, {
-      body: formData,
-      method: "post",
-    });
+    const response = await axios.post<ResizeReponse>(
+      `${VITE_API_URL}/resize`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
-    const { downloadUrl } = await response.json();
+    const { downloadUrl } = response.data;
 
     return downloadUrl;
   };
