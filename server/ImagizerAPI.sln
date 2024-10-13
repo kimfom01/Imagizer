@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagizerAPI", "ImagizerAPI\ImagizerAPI.csproj", "{D1F09511-BDDF-4148-B132-6B5B1349828D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{166BB443-A090-4F6D-BB46-AE8DCC075B6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-assets", "solution-assets", "{12C65C7F-A0BD-4EB5-B227-CF5C133F277A}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1F09511-BDDF-4148-B132-6B5B1349828D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F09511-BDDF-4148-B132-6B5B1349828D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F09511-BDDF-4148-B132-6B5B1349828D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F09511-BDDF-4148-B132-6B5B1349828D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166BB443-A090-4F6D-BB46-AE8DCC075B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166BB443-A090-4F6D-BB46-AE8DCC075B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166BB443-A090-4F6D-BB46-AE8DCC075B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166BB443-A090-4F6D-BB46-AE8DCC075B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

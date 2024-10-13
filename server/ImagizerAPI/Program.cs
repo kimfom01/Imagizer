@@ -1,0 +1,47 @@
+using ImagizerAPI;
+using ImagizerAPI.Infrastructure.FileUpload;
+using ImagizerAPI.Infrastructure.LinkShortener;
+using ImagizerAPI.Options.CorsOrigin;
+using ImagizerAPI.Options.OpenApi;
+using ServiceDefaults;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConfigureOptions<ConfigureShortenerOptions>();
+builder.Services.ConfigureOptions<ConfigureAzureBlobOptions>();
+builder.Services.ConfigureOptions<ConfigureOpenApiOptions>();
+builder.Services.AddCors(options =>
+{
+    var corsOriginOptions = builder
+        .Configuration.GetSection(nameof(CorsOriginOptions))
+        .GetChildren()
+        .ToArray();
+
+    options.AddPolicy("default", corsPolicy => { corsPolicy.WithOrigins(corsOriginOptions[0].Value!); });
+});
+builder.Services.ConfigureSwaggerGen();
+builder.Services.ConfigureRateLimiter();
+builder.Services.ConfigureSwaggerGen(options => { options.AddEnumsWithValuesFixFilters(); });
+builder.Services.ConfigureServices();
+
+var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseRateLimiter();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("default");
+app.UseAuthorization();
+app.MapControllers();
+app.MapDefaultEndpoints();
+
+app.MapGet("/", () => new { message = "Hello from Imagizer API" })
+    .WithSummary("Gets a greeting message")
+    .WithDescription("Returns a greeting message");
+
+await app.RunAsync();
