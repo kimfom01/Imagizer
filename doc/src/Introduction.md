@@ -16,9 +16,9 @@ Contributors names and contact info
 
 ## [Current Features](endpoints/Endpoints.md)
 
-💗 Resize images ([doc](ResizeImage.md))
+💗 Resize images ([doc](endpoints/ResizeImage.md))
 
-🖼️ Convert image formats ([doc](ConvertImageFormat.md))
+🖼️ Convert image formats ([doc](endpoints/ConvertImageFormat.md))
 
 ## Additional Notes
 
@@ -28,7 +28,7 @@ Contributors names and contact info
 
 - [ ] Add more formats
 - [x] Add rate limiting
-- [ ] Build a minimal user interface
+- [x] Build a minimal user interface
 - [ ] Add more image manipulation endpoints
 
 ## License ⚖️

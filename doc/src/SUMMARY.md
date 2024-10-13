@@ -5,4 +5,3 @@
 - [Endpoints](endpoints/Endpoints.md)
   - [Resize Image](endpoints/ResizeImage.md)
   - [Convert Image Format](endpoints/ConvertImageFormat.md)
-- [Demo](Demo.md)
