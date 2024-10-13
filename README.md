@@ -29,7 +29,7 @@ Visit the [official documentation](https://kimfom01.github.io/Imagizer/) for mor
 
 - [ ] Add more formats
 - [x] Add rate limiting
-- [ ] Build a minimal user interface
+- [x] Build a minimal user interface
 - [ ] Add more image manipulation endpoints
 
 ---
