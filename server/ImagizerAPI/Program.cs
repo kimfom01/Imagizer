@@ -3,6 +3,7 @@ using ImagizerAPI.Infrastructure.FileUpload;
 using ImagizerAPI.Infrastructure.LinkShortener;
 using ImagizerAPI.Options.CorsOrigin;
 using ImagizerAPI.Options.OpenApi;
+using Scalar.AspNetCore;
 using ServiceDefaults;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
@@ -36,8 +37,9 @@ builder.Services.ConfigureServices();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.MapScalarApiReference();
+
+app.UseSwagger(options => { options.RouteTemplate = "openapi/{documentName}.json"; });
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -47,7 +49,6 @@ app.MapControllers();
 app.MapDefaultEndpoints();
 
 app.MapGet("/", () => new { message = "Hello from Imagizer API" })
-    .WithSummary("Gets a greeting message")
-    .WithDescription("Returns a greeting message");
+    .ExcludeFromDescription();
 
 await app.RunAsync();
