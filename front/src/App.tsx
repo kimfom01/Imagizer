@@ -7,7 +7,7 @@ import { ConvertForm } from "./components/ConvertForm";
 
 export const App = () => {
   const [downloadUrl, setDownloadUrl] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const selectedStyle = "bg-slate-500 p-2 rounded-lg";
 
