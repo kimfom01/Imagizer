@@ -16,6 +16,7 @@ export const App = () => {
       <Header />
       <div className="flex justify-center h-full w-full">
         <div className="flex flex-col gap-10 min-h-full w-full md:w-fit justify-center items-center">
+          <ShowDownloadLink downloadUrl={downloadUrl} />
           <div className="flex justify-between w-full">
             <button
               className={`${toggle && selectedStyle}`}
@@ -30,7 +31,6 @@ export const App = () => {
               Convert Image
             </button>
           </div>
-          <ShowDownloadLink downloadUrl={downloadUrl} />
           {toggle ? (
             <ResizeForm setDownloadUrl={setDownloadUrl} />
           ) : (

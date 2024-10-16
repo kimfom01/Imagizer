@@ -12,7 +12,7 @@ export const ShowDownloadLink = ({ downloadUrl }: ApiResponse) => {
     <>
       {downloadUrl && (
         <div>
-          Download Link:{" "}
+          <span className="font-bold">Download Link</span>:&nbsp;
           <a
             href={downloadUrl}
             target="__blank"
