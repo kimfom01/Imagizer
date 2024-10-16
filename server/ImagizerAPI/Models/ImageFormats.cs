@@ -2,11 +2,11 @@ namespace ImagizerAPI.Models;
 
 public enum ImageFormats
 {
-    Gif = 80,
-    Heic = 88,
-    Jpeg = 112,
-    Jpg = 113,
-    Png = 182,
-    Raw = 204,
-    Tiff = 235
+    Gif = 81,
+    Heic = 89,
+    Jpeg = 113,
+    Jpg = 114,
+    Png = 185,
+    Raw = 207,
+    Tiff = 241
 }

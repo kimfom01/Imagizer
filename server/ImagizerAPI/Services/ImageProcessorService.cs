@@ -28,7 +28,9 @@ public class ImageProcessorService : IImageProcessorService
 
         using var memoryStream = await WriteToMemoryStream(image);
 
-        var contents = new UploadContents(resizeRequest.ImageFile.FileName, memoryStream);
+        var newFileName = FileExtensions.RenameFile(resizeRequest.ImageFile.FileName);
+
+        var contents = new UploadContents(newFileName, memoryStream);
 
         var downloadUrl = await _objectUploader.UploadImage(contents);
 
@@ -77,7 +79,14 @@ public class ImageProcessorService : IImageProcessorService
             memoryStream.Seek(0, SeekOrigin.Begin);
         }
 
-        var contents = new UploadContents(convertRequest.ImageFile.FileName, memoryStream);
+        var newFileName = FileExtensions.RenameFile(
+            FileExtensions.UpdateExtension(
+                convertRequest.ImageFile.FileName,
+                convertRequest.Format
+            )
+        );
+
+        var contents = new UploadContents(newFileName, memoryStream);
 
         var downloadUrl = await _objectUploader.UploadImage(contents);
 
@@ -88,7 +97,7 @@ public class ImageProcessorService : IImageProcessorService
     {
         try
         {
-            var shortUrl = await _urlShortener.ShortenUrl(new ShortenerRequest (downloadUrl));
+            var shortUrl = await _urlShortener.ShortenUrl(new ShortenerRequest(downloadUrl));
 
             return new UrlResponse(shortUrl);
         }

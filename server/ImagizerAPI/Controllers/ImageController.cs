@@ -65,7 +65,7 @@ public class ImageController : ControllerBase
     ///     Content-Type: multipart/form-data
     ///     FormData:
     ///         ImageFile: (The image file to be converted),
-    ///         Format: 182
+    ///         Format: 185
     ///
     /// The request must be made with 'multipart/form-data' content type to include the image file and the format parameter.
     /// </remarks>
