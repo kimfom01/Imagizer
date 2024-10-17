@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { ResizeForm } from "./components/ResizeForm";
 import { ShowDownloadLink } from "./components/ShowDownloadLink";
 import { ConvertForm } from "./components/ConvertForm";
+import { WarmApi } from "./components/WarmApi";
 
 export const App = () => {
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -14,6 +15,7 @@ export const App = () => {
   return (
     <div className="container flex h-screen dark:text-white flex-col mx-auto p-4">
       <Header />
+      <WarmApi />
       <div className="flex justify-center h-full w-full">
         <div className="flex flex-col gap-10 min-h-full w-full md:w-fit justify-center items-center">
           <ShowDownloadLink downloadUrl={downloadUrl} />
