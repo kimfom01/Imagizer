@@ -48,7 +48,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapDefaultEndpoints();
 
-app.MapGet("/", () => "Hello from Imagizer API" )
+app.MapGet("/", () => "Hello from Imagizer API!" )
     .ExcludeFromDescription();
 
 await app.RunAsync();
